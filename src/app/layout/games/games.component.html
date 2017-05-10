@@ -1,0 +1,24 @@
+<app-page-header [heading]="'Games'" [icon]="'fa-edit'"></app-page-header>
+<div class="page-header">
+    <h1>Cards</h1>
+    <hr>
+</div>
+<div class="row">
+    <div class="col-sm-4" *ngFor="let game of games">
+        <div class="card mb-3">
+            <div class="card-header card-default">
+                {{ game.title }}
+            </div>
+            <div class="card-block">
+                <ul *ngFor="let classe of game.classes">
+                    <li>{{ classe.name }}<br>
+                        <ul *ngFor="let session of classe.sessions">
+                            <li>{{ session.name }}</li>
+                        </ul>
+                    </li>
+                </ul>
+                {{ game.created }}
+            </div>
+        </div>
+    </div>
+</div>

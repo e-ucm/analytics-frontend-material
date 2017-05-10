@@ -10,7 +10,9 @@ export class HeaderComponent implements OnInit {
     username = "nada";
     
     constructor() { }
-    ngOnInit() {}
+    ngOnInit() {
+        this.username = JSON.parse(localStorage.getItem('currentUser')).username;
+    }
 
     toggleSidebar() {
         const dom: any = document.querySelector('body');
