@@ -8,7 +8,7 @@ import 'rxjs/add/operator/share';
 export class GamesService {
 	defaultOptions: any = {};
 
-    public games = [];
+    public static games = [];
     public versions = [];
     public classes = [];
     public sessions = [];
@@ -20,21 +20,26 @@ export class GamesService {
         this.defaultOptions.headers.append('Content-Type', 'application/json');
     }
 
+    Games(){
+        return GamesService.games;
+    }
+
     setToken(token: string){
         this.authToken = token;
         if(!this.defaultOptions.headers.has('Authorization'))
             this.defaultOptions.headers.append('Authorization', 'Bearer ' + this.authToken);
     }
 
-    async initGames(){
+    initGames(){
         this.getGames().subscribe(
             data => {
-                this.games = data;
+                GamesService.games = data;
 
                 for(let game of data){
                     this.getVersions(game._id).subscribe(
                         data => {
                             for(let version of data){
+                                game.trackingCode = version.trackingCode;
                                 this.getClasses(game._id, version._id).subscribe(
                                     data => {
                                         game.classes = data;

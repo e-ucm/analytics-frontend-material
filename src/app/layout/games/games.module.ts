@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { GamesRoutingModule } from './games-routing.module';
+import { GameModule } from './game/game.module';
 import { GamesComponent } from './games.component';
 import { PageHeaderModule } from './../../shared';
 
@@ -13,7 +14,8 @@ import { AlertService } from '../../_services/alert.service';
     imports: [
         CommonModule,
         GamesRoutingModule,
-        PageHeaderModule
+        PageHeaderModule,
+        GameModule
     ],
     declarations: [GamesComponent],
     providers: [

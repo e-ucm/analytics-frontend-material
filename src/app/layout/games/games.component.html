@@ -4,7 +4,8 @@
     <hr>
 </div>
 <div class="row">
-    <div class="col-sm-4" *ngFor="let game of games">
+    {{ games.length }}
+    <div class="col-sm-4" *ngFor="let game of gamesService.games">
         <div class="card mb-3">
             <div class="card-header card-default">
                 {{ game.title }}

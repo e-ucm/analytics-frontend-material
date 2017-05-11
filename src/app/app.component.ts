@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit {
     constructor(public router: Router) { }
     ngOnInit() {
-        // this.router.navigate(['/login']);
+    	if(localStorage.getItem("currentUser") === null)
+        	this.router.navigate(['/login']);
     }
 }

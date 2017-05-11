@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-xl-8">
+        <h1>Game {{ game.title }}</h1>
+    </div>
+    <div class="col-xl-4">
+        <button class="btn btn-md btn-danger" style="width: 100%">Tracking Code<br>{{ game.trackingCode }}</button>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-sm-4" *ngFor="let classe of game.classes">
+        <div class="list-group">
+            <div class="list-group-item active">{{ classe.name }}</div>
+            <div class="list-group-item" *ngFor="let session of classe.sessions">
+                {{ session.name }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="floating" style="position: fixed; bottom: 10px; right: 10px; width: 200px">
+    <div class="card card-success card-inverse mb-3">
+        <div class="card-header card-success">Add new class</div>
+        <div class="card-block bg-white">Contenido</div>
+    </div>
+</div>
