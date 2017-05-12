@@ -9,18 +9,8 @@
 <hr>
 <div class="row">
     <div class="col-sm-4" *ngFor="let classe of game.classes">
-        <div class="list-group">
-            <div class="list-group-item active">{{ classe.name }}</div>
-            <div class="list-group-item" *ngFor="let session of classe.sessions">
-                {{ session.name }}
-            </div>
-        </div>
+        <app-card-class [game]="game._id" [version]="game.version._id" [classe]="classe._id"></app-card-class>
     </div>
 </div>
 
-<div class="floating" style="position: fixed; bottom: 10px; right: 10px; width: 200px">
-    <div class="card card-success card-inverse mb-3">
-        <div class="card-header card-success">Add new class</div>
-        <div class="card-block bg-white">Contenido</div>
-    </div>
-</div>
+<app-new-class [game]="game._id" [version]="game.version._id"></app-new-class>

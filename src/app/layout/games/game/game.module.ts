@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GameComponent } from './game.component';
-import { PageHeaderModule } from './../../../shared';
+import { NewClassModule } from '../../classes/new/new-class.module';
+import { CardClassModule } from '../../classes/card/card-class.module';
 
 import { GamesService } from '../../../_services/games.service';
 
 @NgModule({
     imports: [
         CommonModule,
-        PageHeaderModule
+        NewClassModule,
+        CardClassModule
     ],
     declarations: [GameComponent],
     providers: [GamesService],

@@ -9,9 +9,6 @@ export class GamesService {
 	defaultOptions: any = {};
 
     public static games = [];
-    public versions = [];
-    public classes = [];
-    public sessions = [];
 
     public authToken = "";
 
@@ -34,11 +31,11 @@ export class GamesService {
         this.getGames().subscribe(
             data => {
                 GamesService.games = data;
-
                 for(let game of data){
                     this.getVersions(game._id).subscribe(
                         data => {
                             for(let version of data){
+                                game.version = version;
                                 game.trackingCode = version.trackingCode;
                                 this.getClasses(game._id, version._id).subscribe(
                                     data => {
@@ -80,6 +77,53 @@ export class GamesService {
 
     getSessions(game, version, classe){
         return this.http.get('https://rage.e-ucm.es/api/proxy/gleaner/games/' + game + '/versions/' + version + '/classes/' + classe + '/sessions/my', this.defaultOptions)
+            .map((response: Response) => {
+                 return response.json();
+            }).share();
+    }
+
+    addClass(gameid: string, versionid: string, name: string){
+        this.addClassRequest(gameid,versionid,name)
+            .subscribe(
+                data => {
+                    for(let game of GamesService.games){
+                        if(game._id == gameid){
+                            game.classes.push(data);
+                            break;
+                        }
+                    }
+                });
+    }
+
+    deleteClass(gameid: string, classid: string){
+        this.deleteClassRequest(classid)
+            .subscribe(
+                data => {
+                    for(let game of GamesService.games){
+                        if(game._id == gameid){
+                            let i = 0;
+                            for(let classe of game.classes){
+                                if(classe._id == classid){
+                                    game.classes.splice(i,1);
+                                    break;
+                                }
+                                i++;
+                            }
+                            break;
+                        }
+                    }
+                });
+    }
+
+    private addClassRequest(game: string, version: string, name: string){
+        return this.http.post('https://rage.e-ucm.es/api/proxy/gleaner/games/' + game + '/versions/' + version + '/classes', JSON.stringify({ name: name }), this.defaultOptions)
+            .map((response: Response) => {
+                 return response.json();
+            }).share();
+    }
+
+    private deleteClassRequest(classe: string){
+        return this.http.delete('https://rage.e-ucm.es/api/proxy/gleaner/classes/' + classe, this.defaultOptions)
             .map((response: Response) => {
                  return response.json();
             }).share();
