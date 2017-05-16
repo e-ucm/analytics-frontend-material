@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-xl-8">
+        <h1>Class {{ classe.name }}</h1>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-xl-8">
+        <div class="card card-primary card-inverse mb-3">
+            <div class="card-header card-primary">Sessions</div>
+            <div class="card-block bg-white">
+                <div class="list-group" style="color: black;">
+                     <div class="list-group-item" *ngFor="let session of classe.sessions">
+                        {{ session.name }}
+                        <app-session-state [sessionid]="session._id"></app-session-state>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4">
+        <div class="card card-info card-inverse mb-3">
+            <div class="card-header card-info">Students</div>
+            <div class="card-block bg-white">
+                <div class="list-group" style="color: black;">
+                     <div class="list-group-item" *ngFor="let student of classe.students">
+                        {{ student }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
