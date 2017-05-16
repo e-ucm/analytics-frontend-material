@@ -14,7 +14,8 @@ export class SidebarComponent implements OnInit {
     games = [];
 
     constructor(private gamesService: GamesService) {
-        this.gamesService.setToken("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1OGUzNmY5NjBmMWU1MDAwNDVmMTAwZDciLCJyYW5kTnVtIjoiMDhmNjM4ZmU4ZTU5MzE2MTUyZjgiLCJpYXQiOjE0OTQ0MjQ0MjMsImV4cCI6MTQ5NTAyOTIyM30.RsyrVVrsrfNfGPu2To4lcWP-YY6kxwebujrJ0PYtPgs");
+        let token =  JSON.parse(localStorage.getItem("currentUser")).token;
+        this.gamesService.setToken(token);
         
         this.gamesService.initGames();
     }
