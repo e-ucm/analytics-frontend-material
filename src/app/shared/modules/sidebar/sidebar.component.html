@@ -58,7 +58,7 @@
                 <a class="nav-link nav-link-collapse" [routerLink]="['/games', game._id]" [routerLinkActive]="['router-link-active']" (click)="Switch('game' + game._id)"><img class="ico" src="assets/images/game.png">{{ game.title }}</a>
                 <ul class="sidebar-second-level collapse" [class.collapsed]="menus.indexOf('game'+game._id) === -1" *ngFor="let classe of game.classes">
                     <li>
-                        <a class="nav-link-collapse" (click)="Switch('class' + classe._id)"><i class="fa fa-fw fa-users"></i> {{ classe.name }}</a>
+                        <a class="nav-link-collapse" [routerLink]="['/classes', classe._id]" [routerLinkActive]="['router-link-active']" (click)="Switch('class' + classe._id)"><i class="fa fa-fw fa-users"></i> {{ classe.name }}</a>
                         <ul class="sidebar-third-level collapse" [class.collapsed]="menus.indexOf('class'+classe._id) === -1" *ngFor="let session of classe.sessions">
                             <li>
                                 <a><i class="fa fa-fw fa-calendar-times-o"></i> {{ session.name }}</a>
