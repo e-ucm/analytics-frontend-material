@@ -1,0 +1,14 @@
+<div *ngIf="session.loading != null && session.loading == true; then loading else loaded"></div>
+<ng-template #loaded>
+    <div *ngIf="session.end == null && session.start != null; then inactive else active"></div>
+    <ng-template #active>
+        <a (click)="start()"><span style="position: absolute; right: 10px; top: 12px;">Start <i class="fa fa-fw fa-play"></i></span></a>
+    </ng-template>
+    <ng-template #inactive>
+        <a (click)="stop()"><span style="position: absolute; right: 10px; top: 12px;">Stop <i class="fa fa-fw fa-pause"></i></span></a>
+    </ng-template>
+</ng-template>
+<ng-template #loading>
+    <span style="position: absolute; right: 10px; top: 12px;">Loading <i class="fa fa-fw fa-circle-o-notch fa-spin"></i></span>
+</ng-template>
+
