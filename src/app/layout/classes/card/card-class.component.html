@@ -11,6 +11,7 @@
     	<div class="list-group" style="color: black;">
 		     <div class="list-group-item" *ngFor="let session of classobject.sessions">
 		        {{ session.name }}
+		        <app-session-state [sessionid]="session._id"></app-session-state>
 		    </div>
 	    </div>
     </div>
