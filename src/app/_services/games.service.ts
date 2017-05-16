@@ -9,6 +9,8 @@ export class GamesService {
 	defaultOptions: any = {};
 
     public static games = [];
+    public static classes = [];
+    public static sessions = [];
 
     public authToken = "";
 
@@ -41,9 +43,11 @@ export class GamesService {
                                     data => {
                                         game.classes = data;
                                         for(let classe of game.classes){
+                                            GamesService.classes.push(classe);
                                             this.getSessions(game._id, version._id, classe._id).subscribe(
                                                 data => {
                                                     for(let session of data){
+                                                        GamesService.sessions.push(session);
                                                         classe.sessions = data;
                                                     }
                                                 });
@@ -124,6 +128,52 @@ export class GamesService {
 
     private deleteClassRequest(classe: string){
         return this.http.delete('https://rage.e-ucm.es/api/proxy/gleaner/classes/' + classe, this.defaultOptions)
+            .map((response: Response) => {
+                 return response.json();
+            }).share();
+    }
+
+    public getSession(session: string){
+        return this.http.get('https://rage.e-ucm.es/api/proxy/gleaner/sessions/' + session, this.defaultOptions)
+            .map((response: Response) => {
+                 return response.json();
+            }).share();
+    }
+
+    startSession(session: any = {}){
+        session.loading = true;
+
+        this.startSessionRequest(session._id)
+            .subscribe(
+                data => {
+                    session.loading = false;
+                    session.start = data.start;
+                    session.end = data.end;
+                });
+    }
+
+    endSession(session: any = {}){
+        session.loading = true;
+
+        this.endSessionRequest(session._id)
+            .subscribe(
+                data => {
+                    session.loading = false;
+                    session.start = data.start;
+                    session.end = data.end;
+                });
+    }
+
+    public startSessionRequest(session: string){
+        return this.http.post('https://rage.e-ucm.es/api/proxy/gleaner/sessions/'+session+'/event/start', '', this.defaultOptions)
+            .map((response: Response) => {
+                 return response.json();
+            }).share()
+            
+    }
+
+    public endSessionRequest(session: string){
+        return this.http.post('https://rage.e-ucm.es/api/proxy/gleaner/sessions/'+session+'/event/end', '', this.defaultOptions)
             .map((response: Response) => {
                  return response.json();
             }).share();
